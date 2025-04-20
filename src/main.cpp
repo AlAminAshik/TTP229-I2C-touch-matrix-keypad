@@ -19,42 +19,24 @@
 //        SCL <-> 22 (SCL)
 //
 //////////////////////////////////////////////////////////////////
-
+#include <Arduino.h>
 #include <Wire.h>
 #include <TTP229.h>
 
-TTP229 ttp229;
+TTP229 ttp229(22, 21); // SCL, SDA
 
 void setup()
 {
     Wire.begin();
-    Serial.begin(9600);
+    Serial.begin(115200);
 }
 
 void loop()
 {
-    ttp229.readKeys();
+    //ReadKey8() - 8 buttons mode
 
-    Serial.print("Key states: ");
-    for (int i = 0; i < 16; ++i) {
-        if (ttp229.isKeyPress(i)) {
-            Serial.print("1 ");
-        } else {
-            Serial.print("0 ");
-        }
-    }
-
-    int key = ttp229.getKey();
-    Serial.print("Pressed key: ");
-    Serial.print(key);
-
-    Serial.print("   ");
-    if (ttp229.isKeyDown(0)) {
-        Serial.print("Key 0 is down");
-    } else if (ttp229.isKeyUp(0)) {
-        Serial.print("Key 0 is up");
-    }
-
-    Serial.println();
-    delay(500);
+    uint8_t key = ttp229.ReadKey16();
+    Serial.print("Key: ");
+    Serial.println(key);
+    delay(1000);
 }
