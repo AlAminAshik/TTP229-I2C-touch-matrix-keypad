@@ -23,12 +23,12 @@
 #include <Wire.h>
 #include <TTP229.h>
 
-TTP229 ttp229(22, 21); // SCL, SDA
+TTP229 ttp229(A5, A4); // SCL, SDA
 
 void setup()
 {
     Wire.begin();
-    Serial.begin(115200);
+    Serial.begin(9600);
 }
 
 void loop()
